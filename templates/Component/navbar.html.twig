@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="{{ path("home") }}">Green Village</a>
+		<a class="navbar-brand" href="{{ path("app_home") }}">Green Village</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path("home") }}">Accueil</a>
+					<a class="nav-link active" aria-current="page" href="{{ path("app_home") }}">Accueil</a>
 				</li>
 			</ul>
 
@@ -20,27 +20,94 @@
 						<ul class="dropdown-menu dropdown-menu-end mt-2">
 							<li>
 								<div class="text-center fs-6 opacity-50">
-                                    {{ app.user.email }}
-                                    {{ app.user.name}} {{ app.user.lastName }}
-                                </div>
+									{{ app.user.email }}
+									{{ app.user.name}}
+									{{ app.user.lastName }}
+								</div>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">Mes Information</a>
+								<a class="dropdown-item" href="{{ path('app_user_show', {'id': app.user.id}) }}">Mes Information</a>
 							</li>
 							<li>
 								<a class="dropdown-item" href="#">Mes Commandes</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">Deconnexion</a>
+								<a class="dropdown-item" href="{{path('app_logout')}}">Deconnexion</a>
 							</li>
 						</ul>
 					</li>
+
+					{# {% if is_granted('ROLE_SHIP') %}
+								<li class="nav-item dropdown ml-4">
+									<i class="fa-solid fa-lock-open fa-lg text-danger ml-5"></i>
+									<a class="nav-link dropdown-toggle text-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<b>Back Office</b>
+									</a>
+									<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item text-primary" href="#">
+											<strong>Tableau de bord</strong>
+										</a>
+										<div class="dropdown-divider"></div>
+					
+										<a class="dropdown-item text-danger" href="{{ path('app_admin_user_index') }}">
+											<b>Index des utilisateurs</b>
+										</a>
+										{% if is_granted('ROLE_SALES') %}
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item text-danger" href="#">
+												<b>Index des produits</b>
+											</a>
+											<a class="dropdown-item text-danger" href="#">
+												<i>Nouveau produit</i>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item text-danger" href="#">
+												<b>Index des catégories</b>
+											</a>
+											<a class="dropdown-item text-danger" href="#">
+												<i>Nouvelle catégorie</i>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item text-danger" href="#">
+												<b>Index des fournisseurs</b>
+											</a>
+											<a class="dropdown-item text-danger" href="#">
+												<i>Nouveau fournisseur</i>
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item text-warning" href="#">
+												<i>
+													<strong>Infos Paniers/commandes</strong>
+												</i>
+											</a>
+										{% endif %}
+										<a class="dropdown-item text-warning" href="#">
+											<b>Commandes Clients</b>
+										</a>
+									</div>
+								</li>
+							{% elseif app.user %}
+								<li class="nav-item dropdown">
+									<i class="fa-solid fa-user fa-lg text-secondary ml-5 {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}"></i>
+									<a class="nav-link dropdown-toggle text-decoration-none {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Votre profil</a>
+									<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item text-light" {% if is_granted('ROLE_ADMIN') %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% else %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% endif %}>
+											<b>Vos informations personnelles</b>
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item text-light" href="#">
+											<b>Vos commandes</b>
+										</a>
+									</div>
+								</li>
+							{% endif %} #}
+
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Connexion</a>
+						<a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Connexion</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Inscription</a>
+						<a class="nav-link active" aria-current="page" href="{{path('app_register')}}">Inscription</a>
 					</li>
 				{% endif %}
 			</ul>
