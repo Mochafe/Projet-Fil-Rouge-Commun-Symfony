@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User
+{% endblock %}
+
+{% block body %}
+	<h1>User</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ user.id }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>Roles</th>
+				<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+			</tr>
+			<tr>
+				<th>Password</th>
+				<td>{{ user.password }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ user.name }}</td>
+			</tr>
+			<tr>
+				<th>LastName</th>
+				<td>{{ user.lastName }}</td>
+			</tr>
+			<tr>
+				<th>Birthdate</th>
+				<td>{{ user.birthdate ? user.birthdate|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>SigninDate</th>
+				<td>{{ user.signinDate ? user.signinDate|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>PhoneNumber</th>
+				<td>{{ user.phoneNumber }}</td>
+			</tr>
+			<tr>
+				<th>IsVerified</th>
+				<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Vat</th>
+				<td>{{ user.vat }}</td>
+			</tr>
+			<tr>
+				<th>Pro</th>
+				<td>{{ user.pro ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>ProCompanyName</th>
+				<td>{{ user.proCompanyName }}</td>
+			</tr>
+			<tr>
+				<th>ProDuns</th>
+				<td>{{ user.proDuns }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+{% endblock %}
