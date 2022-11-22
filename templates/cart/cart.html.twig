@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5 text-center">
+		<div class="border rounded">
+			<h1 class="p-3 mt-2 border-bottom ">Panier</h1>
+
+			<ul>
+				{% for product in cart %}
+					<li>{{ product.product.name }}
+						| Quantité :
+						{{ product.quantity }}
+						</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="d-flex mt-4 justify-content-center">
+			<a href="" class="btn btn-primary mx-3">Modifier</a>
+			<a href="" class="btn btn-danger mx-3">Vider</a>
+		</div>
+	</div>
+{% endblock %}
