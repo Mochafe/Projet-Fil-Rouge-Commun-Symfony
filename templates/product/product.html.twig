@@ -42,7 +42,7 @@
 					<div class="form-floating mt-5">
 						<select class="form-select w-25 text-center" id="floatingSelect" name="quantity" aria-label="Quantity">
 							{% for i in 1..10 %}
-								<option value="{{ i }}" selected>{{ i }}</option>
+								<option value="{{ i }}" {% if i == 1 %} selected {% endif %}>{{ i }}</option>
 							{% endfor %}
 						</select>
 						<label for="floatingSelect">Quantité</label>

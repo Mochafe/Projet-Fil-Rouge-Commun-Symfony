@@ -19,13 +19,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CartController extends AbstractController
 {
     #[Route('/view', name: 'view')]
-    public function view(UserInterface $user, CartRepository $cartRepository): Response
+    public function view(CartRepository $cartRepository): Response
     {
+        $user = $this->getUser();
 
         if (!$user)  {
             $this->addFlash("error", "Non connecté");
 
-            return $this->redirectToRoute("app_home");
+            return $this->redirectToRoute("app_login");
         } 
 
         if(!$user->getCart()) {
@@ -44,8 +45,9 @@ class CartController extends AbstractController
     }
 
     #[Route('/add', name: 'add')]
-    public function add(Request $request, ProductRepository $productRepository, CartDetailRepository $cartDetailRepository, CartRepository $cartRepository, UserInterface $user): Response
+    public function add(Request $request, ProductRepository $productRepository, CartDetailRepository $cartDetailRepository, CartRepository $cartRepository): Response
     {
+        $user = $this->getUser();
 
        if(!$user) {
             $this->addFlash("error", "Vous n'êtes pas connecté");
@@ -105,28 +107,76 @@ class CartController extends AbstractController
     }
 
     #[Route('/update', name: 'update')]
-    public function update(Request $request, ProductRepository $productRepository): Response
+    public function update(Request $request, CartDetailRepository $cartDetailRepository): Response
     {
-        $id = $request->request->get("id");
-        $quantity = $request->request->get("quantity");
+        $id = $request->query->get("id");
+        $quantity = $request->query->get("quantity");
+        $user = $this->getUser();
 
-        if(!isset($id) || !isset($quantity) || $quantity < 1 || $productRepository->find($id)) {
+        $cartDetail = $cartDetailRepository->find($id);
+
+        $cartDetails = $user->getCart()->getCartDetails();
+
+
+        $idInCollection = findCartDetailId($cartDetails, $id);
+
+        if(!isset($id) || !isset($quantity) || $quantity < 1 || !$cartDetail || !$this->getUser() || $idInCollection === null) {
+
             $this->addFlash("error", "Erreur lors de la demande");
 
-            return $this->redirectToRoute("cartview");
+            return $this->redirectToRoute("cartview",);
         }
+
+        $cartDetail->setQuantity($quantity);
+
+        $cartDetailRepository->save($cartDetail, true);
 
         $this->addFlash("success" ,"Les modification on était effectué");
 
         return $this->redirectToRoute("cartview");
     }
 
-    #[Route('/delete', name: 'delete')]
-    public function delete(Request $request): Response
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(Request $request, CartDetailRepository $cartDetailRepository, $id): Response
     {
-        $id = $request->request->get("id");
+        $user = $this->getUser();
+
+
+        if(!$user) {
+            $this->addFlash("error", "Vous n'êtes pas connecté");
+
+            return $this->redirectToRoute("app_login");
+        }
+
+        $cartDetails = $user->getCart()->getCartDetails();
+
+
+        $idInCollection = findCartDetailId($cartDetails, $id);
+
+        if($idInCollection === null) {
+            $this->addFlash("error" ,"Erreur lors de la supression");
+
+            return $this->redirectToRoute("cartview");
+        }
+
+        $cartDetail = $cartDetailRepository->find($id);
+
+
+        $user->getCart()->removeCartDetail($cartDetail);
+
+        $cartDetailRepository->save($cartDetail, true);
+
+        $cartDetailRepository->remove($cartDetail, true);
 
         $this->addFlash("success", "Suppression reussie");
         return $this->redirectToRoute("cartview");
     }
+}
+
+function findCartDetailId($cartDetails, int $id) : int | null {
+    foreach($cartDetails as $key => $cartDetail) {
+        if($cartDetail->getId() == $id) return $key;
+    }
+
+    return null;
 }

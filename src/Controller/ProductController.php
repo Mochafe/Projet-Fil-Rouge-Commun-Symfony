@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/product', name: 'product')]
 class ProductController extends AbstractController
@@ -18,14 +19,12 @@ class ProductController extends AbstractController
         
         $product = $productRepository->find($id);
 
-        dd($product);
-
         return $this->render('product/product.html.twig', [
             'product' => $product
         ]);
     }
 
-    #[Route('/{id}', name: 'view')]
+    #[Route('/{id}', name: 'create')]
     public function create(ProductRepository $productRepository, int $id): Response
     {
         
