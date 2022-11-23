@@ -83,19 +83,29 @@ class CartController extends AbstractController
             $cartRepository->save($cart, true);
         }
 
-        $cartDetail = new CartDetail();
+        $cartDetailFound = findCartDetailByProduct($user->getCart()->getCartDetails(), $product, $user);
 
-        $cartDetail->setProduct($product);
 
-        $cartDetail->setQuantity($quantity);
+        if($cartDetailFound) {
+            $cartDetailFound->setQuantity($cartDetailFound->getQuantity() + $quantity);
 
-        $cart = $user->getCart();
+            $cartDetailRepository->save($cartDetailFound, true);
+        } else {
+            $cartDetail = new CartDetail();
 
-        $cart->addCartDetail($cartDetail);
+            $cartDetail->setProduct($product);
 
-        $cartDetailRepository->save($cartDetail, true);
+            $cartDetail->setQuantity($quantity);
 
-        $cartRepository->save($cart, true);
+            $cart = $user->getCart();
+
+            $cart->addCartDetail($cartDetail);
+
+            $cartDetailRepository->save($cartDetail, true);
+
+            $cartRepository->save($cart, true);
+        }
+        
 
 
 
@@ -176,6 +186,16 @@ class CartController extends AbstractController
 function findCartDetailId($cartDetails, int $id) : int | null {
     foreach($cartDetails as $key => $cartDetail) {
         if($cartDetail->getId() == $id) return $key;
+    }
+
+    return null;
+}
+
+function findCartDetailByProduct($cartDetails, $product, $user) : CartDetail | null {
+    foreach($user->getCart()->getCartDetails() as $cartDetail) {
+        if($cartDetail->getProduct() == $product) {
+            return $cartDetail;
+        }
     }
 
     return null;
