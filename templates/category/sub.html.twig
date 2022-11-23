@@ -10,6 +10,7 @@
 
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a  href='{{path('app_home')}}'>Accueil</a></li>
     <li class="breadcrumb-item"><a href="{{path('categoryindex')}}">Categories</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{category.name}}</li>
   </ol>
@@ -26,7 +27,7 @@
   
 
 <div class="card text border-primary mb-3 me-4" style="max-width: 20rem;">
-<a>
+<a href='{{path('productcategory', {category : category.id})}}'>
   <div class="card-header">{{ category.name }}</div>
   <div class="card-body">
     <h4 class="card-title"></h4>

@@ -5,6 +5,17 @@
 {% endblock %}
 
 {% block body %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a  href='{{path('app_home')}}'>Accueil</a></li>
+    <li class="breadcrumb-item"><a href="{{path('categoryindex')}}">Categories</a></li>
+    <li class="breadcrumb-item"><a href="{{path('categorysubcategory',{category : product.category.parent.id})}}">{{product.category.parent.name}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href='{{path('productcategory', {category : product.category.id})}}'>{{product.category.name}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+
+  </ol>
+</nav>
 	<div class="container mt-5">
 		<h2>{{ product.name }}</h2>
 
