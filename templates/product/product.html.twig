@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ product.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h2>{{ product.name }}</h2>
+
+		<div class="row mt-5">
+			<div class="col-6">
+				<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="true">
+					<div class="carousel-indicators">
+						{% for index, image in product.images %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ index }}" {% if index == 0 %} class="active" aria-current="true" {% endif %} aria-label="Slide {{ index + 1 }}"></button>
+						{% endfor %}
+					</div>
+					<div class="carousel-inner">
+						{% for image in product.images %}
+							<div class="carousel-item active">
+								<img src="{{ image.path }}" class="d-block w-100" alt="{{ image.title }}">
+							</div>
+						{% endfor %}
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Précédent</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Suivant</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-6">
+				<h2>{{ product.name }}</h2>
+				<h3>{{ product.price }}
+					€</h3>
+
+				<form action="{{  }}" method="post">
+					<div class="form-floating mt-5">
+						<select class="form-select w-25 text-center" id="floatingSelect" aria-label="Quantity">
+							{% for i in 1..10 %}
+								<option value="{{ i }}" selected>{{ i }}</option>
+							{% endfor %}
+						</select>
+						<label for="floatingSelect">Quantité</label>
+
+						<input class="btn btn-dark mt-3" type="submit" value="Ajouter au panier">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-6">
+				<h2 class="text-center">Description</h2>
+				<p class="mt-3">
+					{{ product.description }}
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
