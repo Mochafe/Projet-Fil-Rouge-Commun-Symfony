@@ -2,8 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Cart;
+use App\Entity\CartDetail;
 use App\Entity\Image;
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -16,9 +19,9 @@ class ProductFixtures extends Fixture
         $product->setName("Squier 40th Anniv. Tele SGM");
 
         $product->setDescription('
-        Edition 40th Anniversary Gold
-        Corps en nyatoh
-        Manche en érable
+        Edition 40th Anniversary Gold<br>
+        Corps en nyatoh<br>
+        Manche en érable<br>
     ');
 
         $product->setPrice(325);
@@ -29,7 +32,7 @@ class ProductFixtures extends Fixture
 
         $image->setTitle("guitar");
 
-        $image->setPath("img/products/a.jpg");
+        $image->setPath("/img/products/a.jpg");
 
         $manager->persist($image);
 

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5 text-center">
+		<div class="border rounded">
+			<h1 class="p-3 mt-2 border-bottom ">Panier</h1>
+			{% if cartDetails is empty %}
+				<h3 class="my-3">Votre panier est vide</h3>
+			{% else %}
+				<ul class="list-group align-items-center my-3">
+					{% for index, cartDetail in cartDetails %}
+						<li class="list-group-item">
+							<div class="card mb-3">
+								<div class="row g-0">
+									<div class="col-md-4">
+										<img src="{{ cartDetail.product.images[0].path }}" class="img-fluid rounded-start" alt="{{ cartDetail.product.images[0].title }}">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body d-flex flex-column h-100">
+											<h5 class="card-title">{{ cartDetail.product.name }}</h5>
+											<label for="quantity-{{ index }}" class="card-text">Quantité :</label>
+											<select class="form-select w-25 mx-auto quantity" name="quantity" id="quantity-{{ index }}" data-id="{{ cartDetail.id }}">
+												{% for i in 1..10 %}
+													<option value="{{ i }}" {% if i == cartDetail.quantity %} selected {% endif %}>{{ i }}</option>
+												{% endfor %}
+											</select>
+											<p class="card-text fs-5 mt-3">
+											{{ cartDetail.product.price * cartDetail.quantity }} €
+											</p>
+											<div class="row mb-3 mt-auto gap-2">
+												<a href="{{ path("cartdelete", {id: cartDetail.id}) }}" class="btn btn-danger col-5">Supprimer</a>
+												<a href="{{ path("productview", {id: cartDetail.product.id}) }}" class="btn btn-primary col-5">Voir</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+
+		<div class="d-flex mt-4 justify-content-center mb-3">
+			{% if cartDetails is empty %}
+				<a href="{{ path("app_home") }}" class="btn btn-primary mx-3">Retour à l'accueil</a>
+			{% else %}
+				<a href="" class="btn btn-primary mx-3">Commander</a>
+				<a href="" class="btn btn-danger mx-3">Vider</a>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+<script src="/js/cartUpdate.js"></script>
+{% endblock %}
