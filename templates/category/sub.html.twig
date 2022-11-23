@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Liste des Categories{% endblock %}
+
+
+{% block body %}
+
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{path('categoryindex')}}">Categories</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{category.name}}</li>
+  </ol>
+</nav>
+
+
+<div class='container '>
+<div class= ' row mt-4 align-items-center justify-content-center'>
+{% for category in categories %}
+
+
+
+
+  
+
+<div class="card text border-primary mb-3 me-4" style="max-width: 20rem;">
+<a>
+  <div class="card-header">{{ category.name }}</div>
+  <div class="card-body">
+    <h4 class="card-title"></h4>
+    <p class="card-text"></p>
+  </div>
+  </a>
+</div>
+
+{% endfor %}
+
+</div>
+</div>
+{% endblock %}

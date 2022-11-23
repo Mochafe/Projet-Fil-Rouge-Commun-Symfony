@@ -9,6 +9,9 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="{{ path("app_home") }}">Accueil</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{path('categoryindex')}}">Categories</a>
+				</li>
 			</ul>
 
 			<ul class="navbar-nav ms-auto me-3">
@@ -41,69 +44,69 @@
 					</li>
 
 					{# {% if is_granted('ROLE_SHIP') %}
-								<li class="nav-item dropdown ml-4">
-									<i class="fa-solid fa-lock-open fa-lg text-danger ml-5"></i>
-									<a class="nav-link dropdown-toggle text-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<b>Back Office</b>
-									</a>
-									<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item text-primary" href="#">
-											<strong>Tableau de bord</strong>
-										</a>
-										<div class="dropdown-divider"></div>
-					
-										<a class="dropdown-item text-danger" href="{{ path('app_admin_user_index') }}">
-											<b>Index des utilisateurs</b>
-										</a>
-										{% if is_granted('ROLE_SALES') %}
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item text-danger" href="#">
-												<b>Index des produits</b>
-											</a>
-											<a class="dropdown-item text-danger" href="#">
-												<i>Nouveau produit</i>
-											</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item text-danger" href="#">
-												<b>Index des catégories</b>
-											</a>
-											<a class="dropdown-item text-danger" href="#">
-												<i>Nouvelle catégorie</i>
-											</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item text-danger" href="#">
-												<b>Index des fournisseurs</b>
-											</a>
-											<a class="dropdown-item text-danger" href="#">
-												<i>Nouveau fournisseur</i>
-											</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item text-warning" href="#">
-												<i>
-													<strong>Infos Paniers/commandes</strong>
-												</i>
-											</a>
-										{% endif %}
-										<a class="dropdown-item text-warning" href="#">
-											<b>Commandes Clients</b>
-										</a>
-									</div>
-								</li>
-							{% elseif app.user %}
-								<li class="nav-item dropdown">
-									<i class="fa-solid fa-user fa-lg text-secondary ml-5 {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}"></i>
-									<a class="nav-link dropdown-toggle text-decoration-none {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Votre profil</a>
-									<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-										<a class="dropdown-item text-light" {% if is_granted('ROLE_ADMIN') %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% else %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% endif %}>
-											<b>Vos informations personnelles</b>
-										</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item text-light" href="#">
-											<b>Vos commandes</b>
-										</a>
-									</div>
-								</li>
-							{% endif %} #}
+													<li class="nav-item dropdown ml-4">
+														<i class="fa-solid fa-lock-open fa-lg text-danger ml-5"></i>
+														<a class="nav-link dropdown-toggle text-danger" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<b>Back Office</b>
+														</a>
+														<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+															<a class="dropdown-item text-primary" href="#">
+																<strong>Tableau de bord</strong>
+															</a>
+															<div class="dropdown-divider"></div>
+										
+															<a class="dropdown-item text-danger" href="{{ path('app_admin_user_index') }}">
+																<b>Index des utilisateurs</b>
+															</a>
+															{% if is_granted('ROLE_SALES') %}
+																<div class="dropdown-divider"></div>
+																<a class="dropdown-item text-danger" href="#">
+																	<b>Index des produits</b>
+																</a>
+																<a class="dropdown-item text-danger" href="#">
+																	<i>Nouveau produit</i>
+																</a>
+																<div class="dropdown-divider"></div>
+																<a class="dropdown-item text-danger" href="#">
+																	<b>Index des catégories</b>
+																</a>
+																<a class="dropdown-item text-danger" href="#">
+																	<i>Nouvelle catégorie</i>
+																</a>
+																<div class="dropdown-divider"></div>
+																<a class="dropdown-item text-danger" href="#">
+																	<b>Index des fournisseurs</b>
+																</a>
+																<a class="dropdown-item text-danger" href="#">
+																	<i>Nouveau fournisseur</i>
+																</a>
+																<div class="dropdown-divider"></div>
+																<a class="dropdown-item text-warning" href="#">
+																	<i>
+																		<strong>Infos Paniers/commandes</strong>
+																	</i>
+																</a>
+															{% endif %}
+															<a class="dropdown-item text-warning" href="#">
+																<b>Commandes Clients</b>
+															</a>
+														</div>
+													</li>
+												{% elseif app.user %}
+													<li class="nav-item dropdown">
+														<i class="fa-solid fa-user fa-lg text-secondary ml-5 {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}"></i>
+														<a class="nav-link dropdown-toggle text-decoration-none {% if app.request.attributes.get('_route') == 'app_user_show' %}text-light{% elseif app.request.attributes.get('_route') == 'app_validated_orders' %}text-light{% else %}text-secondary{% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Votre profil</a>
+														<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+															<a class="dropdown-item text-light" {% if is_granted('ROLE_ADMIN') %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% else %} href="{{ path('app_user_show', {'id': app.user.id}) }}" {% endif %}>
+																<b>Vos informations personnelles</b>
+															</a>
+															<div class="dropdown-divider"></div>
+															<a class="dropdown-item text-light" href="#">
+																<b>Vos commandes</b>
+															</a>
+														</div>
+													</li>
+												{% endif %} #}
 
 				{% else %}
 					<li class="nav-item">
