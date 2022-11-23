@@ -14,7 +14,7 @@
     {% if category.parent == null  %}
 
 <div class="card  border-primary mb-3 me-4" style="max-width: 20rem;">
-<a href="{{path('subcategory',{'category': category.id})}}">
+<a href="{{path('categorysubcategory',{'category': category.id})}}">
   <div class="card-header">{{ category.name }}</div>
   <div class="card-body">
     <h4 class="card-title"></h4>
