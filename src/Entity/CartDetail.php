@@ -15,14 +15,15 @@ class CartDetail
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Product $product = null;
-
     #[ORM\Column]
     private ?int $quantity = null;
 
     #[ORM\ManyToMany(targetEntity: Cart::class, mappedBy: 'cartDetails')]
     private Collection $carts;
+
+    #[ORM\ManyToOne(inversedBy: 'cartDetails')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
 
     public function __construct()
     {
@@ -34,17 +35,6 @@ class CartDetail
         return $this->id;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
 
     public function getQuantity(): ?int
     {
@@ -81,6 +71,18 @@ class CartDetail
         if ($this->carts->removeElement($cart)) {
             $cart->removeCartDetail($this);
         }
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

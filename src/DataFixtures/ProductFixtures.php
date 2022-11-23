@@ -40,24 +40,6 @@ class ProductFixtures extends Fixture
 
         $manager->persist($product);
 
-        $cart = new Cart();
-
-        $cartDetails = new CartDetail();
-
-        $cartDetails->setProduct($product);
-
-        $cartDetails->setQuantity(12);
-
-        $cart->addCartDetail($cartDetails);
-
-        $manager->persist($cartDetails);
-
-        $user = $manager->getRepository(User::class)->find(1);
-
-        $cart->setUser($user);
-
-        $manager->persist($cart);
-
         $manager->flush();
     }
 }

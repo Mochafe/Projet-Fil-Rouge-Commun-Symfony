@@ -10,7 +10,6 @@ cartDetails
 Cart -- CartDetail
 class CartDetail{
 PK - id
-product
 quantity
 carts
 }

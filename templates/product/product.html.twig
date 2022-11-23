@@ -38,16 +38,18 @@
 				<h3>{{ product.price }}
 					€</h3>
 
-				<form action="" method="post">
+				<form action="{{ path("cartadd") }}" method="post">
 					<div class="form-floating mt-5">
-						<select class="form-select w-25 text-center" id="floatingSelect" aria-label="Quantity">
+						<select class="form-select w-25 text-center" id="floatingSelect" name="quantity" aria-label="Quantity">
 							{% for i in 1..10 %}
 								<option value="{{ i }}" selected>{{ i }}</option>
 							{% endfor %}
 						</select>
 						<label for="floatingSelect">Quantité</label>
 
-						<input class="btn btn-dark mt-3" type="submit" value="Ajouter au panier">
+						<input type="hidden" name="id" value="{{ product.id }}">
+
+						<input class="btn btn-dark mt-3" type="submit" value="Ajouter au panier" />
 					</div>
 				</form>
 			</div>
