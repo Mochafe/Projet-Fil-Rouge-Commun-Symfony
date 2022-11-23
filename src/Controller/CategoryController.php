@@ -10,9 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
 
+#[Route('/category', name: 'category')]
+
 class CategoryController extends AbstractController
 {
-    #[Route('/category', name: 'category_index')]
+    #[Route('/', name: 'index')]
     public function index( CategoryRepository $categoryRepository): Response
     {
 
@@ -23,7 +25,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/category/{category}', name: 'subcategory')]
+    #[Route('/{category}', name: 'subcategory')]
     public function sub( Category $category): Response
     {
      
