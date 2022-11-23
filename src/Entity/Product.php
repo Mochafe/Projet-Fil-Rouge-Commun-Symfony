@@ -46,6 +46,10 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartDetail::class)]
     private Collection $cartDetails;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -225,6 +229,18 @@ class Product
                 $cartDetail->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

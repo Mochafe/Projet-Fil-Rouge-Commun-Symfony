@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,25 +15,28 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[Route('/product', name: 'product')]
 class ProductController extends AbstractController
 {
-    #[Route('/{id}', name: 'view')]
+
+    #[Route('view/{id}', name: 'view')]
     public function view(ProductRepository $productRepository, int $id): Response
     {
-        
+
         $product = $productRepository->find($id);
 
         return $this->render('product/product.html.twig', [
             'product' => $product
         ]);
     }
-
-    #[Route('/{id}', name: 'create')]
-    public function create(ProductRepository $productRepository, int $id): Response
+    #[Route('/{category}', name: 'category')]
+    public function index(Category $category): Response
     {
-        
-        $product = $productRepository->find($id);
 
-        return $this->render('product/product.html.twig', [
-            'product' => $product
+        $products = $category->getProducts();
+
+        return $this->render('product/products.html.twig', [
+            'products' => $products,
+            'category' => $category
         ]);
     }
+
+   
 }
