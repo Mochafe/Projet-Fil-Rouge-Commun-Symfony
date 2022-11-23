@@ -29,7 +29,8 @@ class CategoryController extends AbstractController
      
       
         return $this->render('category/sub.html.twig', [
-            'categories' => $category->getChilds()
+            'categories' => $category->getChilds(),
+            "category" => $category
         ]);
     }
 }
