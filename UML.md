@@ -12,9 +12,21 @@ class CartDetail{
 PK - id
 quantity
 carts
+product
 }
 
 CartDetail -- Cart
+class Category{
+PK - id
+Name
+parent
+childs
+products
+}
+
+Category -- self
+Category -- self
+Category -- Product
 class Image{
 PK - id
 title
@@ -28,15 +40,17 @@ name
 description
 reference
 price
-discount
 discountRate
 quantity
 images
 carts
+cartDetails
+category
 }
 
 Product -- Image
 Product -- Cart
+Product -- CartDetail
 class ResetPasswordRequest{
 PK - id
 user

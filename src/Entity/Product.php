@@ -28,9 +28,6 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2, nullable: true)]
-    private ?string $discount = null;
-
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2, nullable: true)]
     private ?string $discountRate = null;
 
@@ -106,18 +103,6 @@ class Product
     public function setPrice(?float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDiscount(): ?string
-    {
-        return $this->discount;
-    }
-
-    public function setDiscount(?string $discount): self
-    {
-        $this->discount = $discount;
 
         return $this;
     }
