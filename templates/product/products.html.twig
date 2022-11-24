@@ -21,23 +21,28 @@
 
 			{% for product in products %}
 
-
-				<a class='col-4' href="{{path('productview',{'id': product.id})}}">
+				<a class='col-4 text-decoration-none' href="{{path('productview',{'id': product.id})}}">
 					<div class="card mb-3" style="max-width: 540px;">
 						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="{{ product.images[0].path }}" class="img-fluid rounded-start" alt="{{ product.images[0].title }}">
+							<div class="col-md-4 d-flex justify-content-center align-items-center">
+								{% if (product.images)|length != 0%}<img src="{{ product.images[0].path }}" class="img-fluid rounded-start" alt="{{ product.images[0].title }}">{% else %}<i class="fa-solid fa-lg fa-guitar"></i>{% endif %}
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
 									<h5 class="card-title">{{ product.name }}</h5>
+									{% if product.discountRate != 0%}
+									<s class="card-text">{{product.price}} €</s>
+									<p class="card-text">-{{product.discountRate * 100}} %</p>
+									<b class="card-text">{{product.price * (1 - product.discountRate)}} €</b>
+										{% else %}
+									<p class="card-text">{{product.price}} €</p>
 									<p class="card-text">{{product.description}}</p>
+									{% endif %}
 								</div>
 							</div>
 						</div>
 					</div>
 				</a>
-
 
 			{% endfor %}
 		</div>
